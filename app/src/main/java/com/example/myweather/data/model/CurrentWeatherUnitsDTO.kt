@@ -2,7 +2,6 @@ package com.example.myweather.data.model
 
 import kotlinx.serialization.Serializable
 
-
 @Serializable
 data class CurrentWeatherUnitsDTO(
     val interval: String,
