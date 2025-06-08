@@ -1,8 +1,8 @@
 package com.example.myweather.domain.location
 
-import android.location.Location
+import com.example.myweather.domain.model.entity.location.CurrentLocation
 
 
 interface LocationProvider {
-    suspend fun getCurrentLocation(): Location?
+    suspend fun getCurrentLocation(): CurrentLocation?
 }

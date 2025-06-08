@@ -15,7 +15,7 @@ val LocationModule = module {
     single<LocationProvider> {
         GoogleLocationService(
             locationClient = get(),
-            application = androidApplication()
+            context = get()
         )
     }
 
