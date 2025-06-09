@@ -4,5 +4,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class HourlyUnitsDTO(
     val temperature_2m: String,
-    val time: String
+    val time: String,
+    val weathercode: String
 )

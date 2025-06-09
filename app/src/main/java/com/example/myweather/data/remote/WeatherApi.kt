@@ -9,7 +9,7 @@ class WeatherApi(
     private val client: HttpClient
 ) {
     suspend fun getWeatherData(lat: Double, long: Double): WeatherDTO {
-        val url = "$OPEN_METEO_URL?latitude=$lat&longitude=$long&current_weather=true&hourly=temperature_2m&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto"
+        val url = "$OPEN_METEO_URL?latitude=$lat&longitude=$long&current_weather=true&hourly=temperature_2m,weathercode&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto"
         return client.get(url).body()
     }
 
