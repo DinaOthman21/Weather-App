@@ -1,21 +1,25 @@
 package com.example.myweather.presentation
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.myweather.presentation.components.header.Header
+import com.example.myweather.ui.theme.gradientColors
 
 @Composable
 fun WeatherScreen(viewModel: WeatherViewModel) {
@@ -30,11 +34,14 @@ fun ScreenContent(
 ){
     when {
         state.isLoading -> {
-            Text(
-                text = "Loading...",
-                fontSize = 20.sp,
-                modifier = Modifier.padding(16.dp)
-            )
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(48.dp)
+                )
+            }
         }
 
         state.error.isNotEmpty() -> {
@@ -47,26 +54,14 @@ fun ScreenContent(
         }
 
         state.weatherData != null -> {
-            val dailyList = state.weatherData.daily
-
-            androidx.compose.foundation.lazy.LazyColumn {
-                items(dailyList.size) { index ->
-                    val day = dailyList[index]
-
-                    Column(
-                        modifier = Modifier
-                            .padding(16.dp)
-                            .background(Color(0xFFBBDEFB), shape = RoundedCornerShape(12.dp))
-                            .padding(16.dp)
-                            .width(200.dp),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text("Date: ${day.date}")
-                        Text("Max Temp: ${day.max_temperature}°C", fontWeight = FontWeight.Bold)
-                        Text("Min Temp: ${day.min_temperature}°C")
-                        Text("Weather Code: ${day.weather_code}")
-                    }
+            LazyColumn(
+                state = rememberLazyListState(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(  brush = Brush.verticalGradient(colors = gradientColors))
+            ) {
+                item {
+                    Header(state)
                 }
             }
         }
@@ -80,6 +75,7 @@ fun ScreenContent(
         }
     }
 }
+
 
 
 
