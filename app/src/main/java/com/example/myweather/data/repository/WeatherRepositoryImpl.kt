@@ -24,7 +24,7 @@ class WeatherRepositoryImpl(
                 val weatherData = weatherDto.toWeatherData()
                 weatherData
             } catch (e: Exception) {
-                throw Exception("Failed to fetch weather data.", e)
+                throw Exception("Failed to fetch weather data: ${e.message}", e)
             }
         }
     }
