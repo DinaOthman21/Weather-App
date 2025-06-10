@@ -13,12 +13,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myweather.R
+import com.example.myweather.presentation.WeatherUiState
 import com.example.myweather.ui.theme.Urbanist
-import com.example.myweather.ui.theme.locationColor
+import com.example.myweather.ui.theme.locationColorForDay
 
 @Composable
 fun CityItem(
-    cityName : String
+    state : WeatherUiState
 ){
     Row(
         verticalAlignment = Alignment.CenterVertically
@@ -26,13 +27,13 @@ fun CityItem(
         Icon(
             painter = painterResource(R.drawable.location),
             contentDescription = "location icon",
-            tint = locationColor
+            tint = locationColorForDay(state.weatherData?.currentWeather?.is_day ?: true)
         )
         Spacer(Modifier.width(4.dp))
         Text(
-            text = cityName,
+            text = state.weatherData!!.timeZone,
             fontSize = 16.sp,
-            color = locationColor,
+            color = locationColorForDay(state.weatherData.currentWeather.is_day),
             fontWeight = FontWeight.Medium,
             fontFamily = Urbanist,
             lineHeight = 20.sp,

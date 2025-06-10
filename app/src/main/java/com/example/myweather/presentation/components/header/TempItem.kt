@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -21,43 +20,45 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myweather.R
+import com.example.myweather.presentation.WeatherUiState
 import com.example.myweather.ui.theme.Urbanist
-import com.example.myweather.ui.theme.tempItemColor
+import com.example.myweather.ui.theme.tempItemBgColorForDay
+import com.example.myweather.ui.theme.tempItemDividerColorForDay
+import com.example.myweather.ui.theme.tempItemIconColorForDay
 
 @Composable
 fun TemperatureRow(
     modifier: Modifier = Modifier,
-    maxTemp: Int,
-    minTemp: Int
+    state : WeatherUiState
 ) {
-
     Row(
         modifier = modifier
             .height(35.dp)
             .clip(CircleShape)
-            .background(tempItemColor.copy(alpha = .08f))
+            .background(tempItemBgColorForDay(state.weatherData?.currentWeather?.is_day ?: false))
             .padding(horizontal = 24.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         TemperatureItem(
             icon = painterResource(id = R.drawable.arrow_up),
-            temperature = maxTemp,
+            temperature = state.weatherData?.daily[0]?.max_temperature?.toInt() ?: 0,
+            color = tempItemIconColorForDay(state.weatherData?.currentWeather?.is_day ?: false)
         )
         Spacer(Modifier.width(8.dp))
         Box(
             modifier = Modifier
                 .width(1.dp)
                 .height(24.dp)
-                .background(tempItemColor.copy(alpha = .24f))
+                .background(tempItemDividerColorForDay(state.weatherData?.currentWeather?.is_day ?: false))
         )
         Spacer(Modifier.width(8.dp))
         TemperatureItem(
             icon = painterResource(id = R.drawable.arrow_down),
-            temperature = minTemp,
+            temperature = state.weatherData?.daily[0]?.min_temperature?.toInt() ?: 0,
+            color = tempItemIconColorForDay(state.weatherData?.currentWeather?.is_day ?: false)
         )
     }
 }
@@ -66,6 +67,7 @@ fun TemperatureRow(
 private fun TemperatureItem(
     icon: Painter,
     temperature: Int,
+    color : Color
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -75,32 +77,16 @@ private fun TemperatureItem(
             painter = icon,
             contentDescription = null,
             modifier = Modifier.size(24.dp),
-            tint = tempItemColor.copy(alpha = .6f)
+            tint = color
         )
         Text(
             text = "$temperature°C",
             fontSize = 16.sp,
-            color = tempItemColor.copy(alpha = .6f),
+            color = color,
             fontWeight = FontWeight.Medium,
             fontFamily = Urbanist,
             lineHeight = 16.sp,
             letterSpacing = 0.25.sp,
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun TemperatureDisplayPreview() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFFD2E7F8)),
-        contentAlignment = Alignment.Center
-    ) {
-        TemperatureRow(
-           maxTemp =  53,
-           minTemp =  30
         )
     }
 }

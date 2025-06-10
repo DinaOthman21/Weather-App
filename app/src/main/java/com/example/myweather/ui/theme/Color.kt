@@ -1,5 +1,6 @@
 package com.example.myweather.ui.theme
 
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
 val Purple80 = Color(0xFFD0BCFF)
@@ -18,4 +19,42 @@ val gradientColors = listOf(
     SkyBlueLight,
     white
 )
+val DarkPurpleBlueStart = Color(0xFF060414)
+val DarkPurpleBlueEnd = Color(0xFF0D0C19)
+val gradientColorsDark = listOf(
+    DarkPurpleBlueStart,
+    DarkPurpleBlueEnd
+)
 val tempItemColor = Color(0xFF060414)
+
+fun backgroundGradientForDay(isDay: Boolean): Brush {
+    return if (isDay) {
+        Brush.verticalGradient(colors = gradientColors)
+    } else {
+        Brush.verticalGradient(colors = gradientColorsDark)
+    }
+}
+
+fun locationColorForDay(isDay: Boolean): Color {
+    return if (isDay) locationColor else Color.White
+}
+
+fun tempColorForDay(isDay: Boolean): Color {
+    return if (isDay) tempColor else Color.White
+}
+
+fun tempTextColorForDay(isDay: Boolean): Color {
+    return if (isDay) Color(0x99060414) else Color.White.copy(alpha = .6f)
+}
+
+fun tempItemDividerColorForDay(isDay: Boolean): Color {
+    return if (isDay) tempItemColor.copy(.24f) else Color.White.copy(.24f)
+}
+
+fun tempItemBgColorForDay(isDay: Boolean): Color {
+    return if (isDay) tempItemColor.copy(alpha = .08f) else Color.White.copy(.08f)
+}
+
+fun tempItemIconColorForDay(isDay: Boolean): Color {
+    return if (isDay) tempItemColor.copy(alpha = .6f) else Color.White.copy(.87f)
+}

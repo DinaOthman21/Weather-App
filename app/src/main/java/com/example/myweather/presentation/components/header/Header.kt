@@ -15,7 +15,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -24,7 +23,8 @@ import androidx.compose.ui.unit.sp
 import com.example.myweather.R
 import com.example.myweather.presentation.WeatherUiState
 import com.example.myweather.ui.theme.Urbanist
-import com.example.myweather.ui.theme.tempColor
+import com.example.myweather.ui.theme.tempColorForDay
+import com.example.myweather.ui.theme.tempTextColorForDay
 
 
 @Composable
@@ -35,7 +35,7 @@ fun Header(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Spacer(modifier = Modifier.height(64.dp))
-        CityItem(cityName = weatherUiState.weatherData!!.timeZone)
+        CityItem(state = weatherUiState)
         Row(modifier = Modifier.fillMaxWidth().offset(y = (-20).dp)) {
             Spacer(modifier = Modifier.weight(1f))
             Box(
@@ -60,18 +60,18 @@ fun Header(
             Spacer(modifier = Modifier.weight(2f))
         }
         Text(
-            "${weatherUiState.weatherData.currentWeather.temperature}" + "°C",
+            "${weatherUiState.weatherData?.currentWeather?.temperature}" + "°C",
             fontSize = 64.sp,
-            color = tempColor,
+            color = tempColorForDay(weatherUiState.weatherData?.currentWeather?.is_day ?: false),
             fontFamily = Urbanist,
             fontWeight = FontWeight.SemiBold,
             lineHeight = 64.sp,
             letterSpacing = 0.25.sp,
         )
         Text(
-            text = weatherUiState.weatherData.currentWeather.weathercode.description,
+            text = weatherUiState.weatherData?.currentWeather?.weathercode?.description ?:"" ,
             fontSize = 16.sp,
-            color = Color(0x99060414),
+            color = tempTextColorForDay(weatherUiState.weatherData?.currentWeather?.is_day ?: false),
             fontFamily = Urbanist,
             fontWeight = FontWeight.Medium,
             lineHeight = 16.sp,
@@ -79,8 +79,7 @@ fun Header(
         )
         Spacer(Modifier.height(12.dp))
         TemperatureRow(
-            maxTemp = weatherUiState.weatherData.daily[0].max_temperature.toInt(),
-            minTemp = weatherUiState.weatherData.daily[0].min_temperature.toInt()
+            state = weatherUiState
         )
     }
 }

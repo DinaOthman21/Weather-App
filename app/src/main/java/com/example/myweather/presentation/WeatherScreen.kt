@@ -14,12 +14,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myweather.presentation.components.header.Header
-import com.example.myweather.ui.theme.gradientColors
+import com.example.myweather.ui.theme.backgroundGradientForDay
 
 @Composable
 fun WeatherScreen(viewModel: WeatherViewModel) {
@@ -58,7 +57,7 @@ fun ScreenContent(
                 state = rememberLazyListState(),
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(  brush = Brush.verticalGradient(colors = gradientColors))
+                    .background(backgroundGradientForDay(state.weatherData.currentWeather.is_day))
             ) {
                 item {
                     Header(state)
