@@ -9,5 +9,8 @@ data class CurrentWeatherUnit(
     val uvIndex: String,
     val isDay: String,
     val weatherCode: String,
-    val time: String
+    val time: String,
+    val interval: String,
+    val precipitationProbability: String,
+    val rain: String,
 )

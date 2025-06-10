@@ -19,6 +19,7 @@ val gradientColors = listOf(
     SkyBlueLight,
     white
 )
+
 val DarkPurpleBlueStart = Color(0xFF060414)
 val DarkPurpleBlueEnd = Color(0xFF0D0C19)
 val gradientColorsDark = listOf(
@@ -31,7 +32,11 @@ fun backgroundGradientForDay(isDay: Boolean): Brush {
     return if (isDay) {
         Brush.verticalGradient(colors = gradientColors)
     } else {
-        Brush.verticalGradient(colors = gradientColorsDark)
+        Brush.verticalGradient(
+            colors = gradientColorsDark ,
+            startY = 0f,
+            endY = Float.POSITIVE_INFINITY
+        )
     }
 }
 
@@ -58,3 +63,20 @@ fun tempItemBgColorForDay(isDay: Boolean): Color {
 fun tempItemIconColorForDay(isDay: Boolean): Color {
     return if (isDay) tempItemColor.copy(alpha = .6f) else Color.White.copy(.87f)
 }
+
+fun currentWeatherCardBgColorForDay(isDay: Boolean): Color {
+    return if (isDay) Color.White.copy(.7f) else tempColor.copy(.7f)
+}
+
+fun currentWeatherCardValueColorForDay(isDay: Boolean): Color {
+    return if (isDay) DarkPurpleBlueStart.copy(.87f) else Color.White.copy(.87f)
+}
+
+fun currentWeatherCardLabelColorForDay(isDay: Boolean): Color {
+    return if (isDay) DarkPurpleBlueStart.copy(.6f) else Color.White.copy(.6f)
+}
+
+fun currentWeatherCardStrokeColorForDay(isDay: Boolean): Color {
+    return if (isDay) tempItemColor.copy(.08f) else Color.White.copy(.08f)
+}
+

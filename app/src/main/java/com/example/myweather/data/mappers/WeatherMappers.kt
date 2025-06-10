@@ -71,7 +71,10 @@ fun CurrentDTO.toCurrentWeather(): CurrentWeather {
         humidity = this.relative_humidity_2m,
         uvIndex = this.uv_index,
         isDay = this.is_day == 1,
-        weatherCode = codeToCondition(this.weather_code)
+        weatherCode = codeToCondition(this.weather_code),
+        interval = this.interval,
+        precipitationProbability = this.precipitation_probability,
+        rain = this.rain
         )
 }
 
@@ -85,7 +88,10 @@ fun CurrentUnitsDTO.toCurrentWeatherUnits(): CurrentWeatherUnit {
         uvIndex = this.uv_index,
         isDay = this.is_day,
         weatherCode = this.weather_code,
-        time = this.time
+        time = this.time,
+        interval = this.interval,
+        precipitationProbability = this.precipitation_probability,
+        rain = this.rain
     )
 }
 

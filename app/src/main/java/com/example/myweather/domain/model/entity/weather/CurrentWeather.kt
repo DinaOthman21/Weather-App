@@ -9,5 +9,8 @@ data class CurrentWeather(
     val humidity: Int,
     val uvIndex: Double,
     val isDay: Boolean,
-    val weatherCode: WeatherCondition
+    val weatherCode: WeatherCondition,
+    val interval: Int,
+    val precipitationProbability: Int,
+    val rain: Double
 )
