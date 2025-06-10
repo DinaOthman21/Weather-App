@@ -57,7 +57,7 @@ fun ScreenContent(
                 state = rememberLazyListState(),
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(backgroundGradientForDay(state.weatherData.currentWeather.is_day))
+                    .background(backgroundGradientForDay(state.weatherData.currentWeather.isDay))
             ) {
                 item {
                     Header(state)

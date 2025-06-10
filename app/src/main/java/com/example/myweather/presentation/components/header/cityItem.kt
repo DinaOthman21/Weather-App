@@ -27,13 +27,13 @@ fun CityItem(
         Icon(
             painter = painterResource(R.drawable.location),
             contentDescription = "location icon",
-            tint = locationColorForDay(state.weatherData?.currentWeather?.is_day ?: true)
+            tint = locationColorForDay(state.weatherData?.currentWeather?.isDay ?: true)
         )
         Spacer(Modifier.width(4.dp))
         Text(
             text = state.weatherData!!.timeZone,
             fontSize = 16.sp,
-            color = locationColorForDay(state.weatherData.currentWeather.is_day),
+            color = locationColorForDay(state.weatherData.currentWeather.isDay),
             fontWeight = FontWeight.Medium,
             fontFamily = Urbanist,
             lineHeight = 20.sp,

@@ -1,18 +1,15 @@
 package com.example.myweather.data.mappers
 
 import android.location.Location
-import com.example.myweather.data.model.CurrentWeatherDTO
-import com.example.myweather.data.model.CurrentWeatherUnitsDTO
-import com.example.myweather.data.model.DailyDTO
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.example.myweather.data.model.CurrentDTO
+import com.example.myweather.data.model.CurrentUnitsDTO
+import com.example.myweather.data.model.DailyDTO
 import com.example.myweather.data.model.DailyUnitsDTO
 import com.example.myweather.data.model.HourlyDTO
 import com.example.myweather.data.model.HourlyUnitsDTO
 import com.example.myweather.data.model.WeatherDTO
-import java.time.LocalDate
-import java.time.format.TextStyle
-import java.util.Locale
 import com.example.myweather.domain.model.entity.location.CurrentLocation
 import com.example.myweather.domain.model.entity.weather.CurrentWeather
 import com.example.myweather.domain.model.entity.weather.CurrentWeatherUnit
@@ -22,7 +19,10 @@ import com.example.myweather.domain.model.entity.weather.Hourly
 import com.example.myweather.domain.model.entity.weather.HourlyUnite
 import com.example.myweather.domain.model.entity.weather.WeatherCondition
 import com.example.myweather.domain.model.entity.weather.WeatherData
+import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.time.format.TextStyle
+import java.util.Locale
 
 fun Location.toAppLocation(): CurrentLocation {
     return CurrentLocation(
@@ -61,27 +61,31 @@ private fun codeToCondition(code: Int): WeatherCondition {
 }
 
 
-fun CurrentWeatherDTO.toCurrentWeather(): CurrentWeather {
+fun CurrentDTO.toCurrentWeather(): CurrentWeather {
     return CurrentWeather(
         time = this.time,
-        interval = this.interval,
-        temperature = this.temperature,
-        windspeed = this.windspeed,
-        winddirection = this.winddirection,
-        is_day = this.is_day == 1,
-        weathercode = codeToCondition(this.weathercode)
-    )
+        temperature = this.temperature_2m,
+        apparentTemperature = this.apparent_temperature,
+        windSpeed = this.wind_speed_10m,
+        pressure = this.pressure_msl,
+        humidity = this.relative_humidity_2m,
+        uvIndex = this.uv_index,
+        isDay = this.is_day == 1,
+        weatherCode = codeToCondition(this.weather_code)
+        )
 }
 
-fun CurrentWeatherUnitsDTO.toCurrentWeatherUnits(): CurrentWeatherUnit {
+fun CurrentUnitsDTO.toCurrentWeatherUnits(): CurrentWeatherUnit {
     return CurrentWeatherUnit(
-        time = this.time,
-        interval = this.interval,
-        temperature = this.temperature,
-        windspeed = this.windspeed,
-        winddirection = this.winddirection,
-        is_day = this.is_day,
-        weathercode = this.weathercode
+        temperature = this.temperature_2m,
+        apparentTemperature = this.apparent_temperature,
+        windSpeed = this.wind_speed_10m,
+        pressure = this.pressure_msl,
+        humidity = this.relative_humidity_2m,
+        uvIndex = this.uv_index,
+        isDay = this.is_day,
+        weatherCode = this.weather_code,
+        time = this.time
     )
 }
 
@@ -130,12 +134,12 @@ fun HourlyUnitsDTO.toHourlyUnits(): HourlyUnite {
 @RequiresApi(Build.VERSION_CODES.O)
 fun WeatherDTO.toWeatherData(): WeatherData {
     return WeatherData(
-            timeZone = this.timezone,
-        currentWeather = this.current_weather.toCurrentWeather(),
-        currentWeatherUnit = this.current_weather_units.toCurrentWeatherUnits(),
-        daily = this.dailyDTO.toDaily(),
+        timeZone = this.timezone,
+        currentWeather = this.current.toCurrentWeather(),
+        currentWeatherUnit = this.current_units.toCurrentWeatherUnits(),
+        daily = this.daily.toDaily(),
         dailyUnits = this.daily_units.toDailyUnits(),
-        hourly = this.hourlyDTO.toHourly(),
+        hourly = this.hourly.toHourly(),
         hourlyUnits = this.hourly_units.toHourlyUnits()
     )
 }

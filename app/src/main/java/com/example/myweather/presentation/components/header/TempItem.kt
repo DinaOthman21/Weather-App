@@ -38,27 +38,27 @@ fun TemperatureRow(
         modifier = modifier
             .height(35.dp)
             .clip(CircleShape)
-            .background(tempItemBgColorForDay(state.weatherData?.currentWeather?.is_day ?: false))
+            .background(tempItemBgColorForDay(state.weatherData?.currentWeather?.isDay ?: false))
             .padding(horizontal = 24.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         TemperatureItem(
             icon = painterResource(id = R.drawable.arrow_up),
             temperature = state.weatherData?.daily[0]?.max_temperature?.toInt() ?: 0,
-            color = tempItemIconColorForDay(state.weatherData?.currentWeather?.is_day ?: false)
+            color = tempItemIconColorForDay(state.weatherData?.currentWeather?.isDay ?: false)
         )
         Spacer(Modifier.width(8.dp))
         Box(
             modifier = Modifier
                 .width(1.dp)
                 .height(24.dp)
-                .background(tempItemDividerColorForDay(state.weatherData?.currentWeather?.is_day ?: false))
+                .background(tempItemDividerColorForDay(state.weatherData?.currentWeather?.isDay ?: false))
         )
         Spacer(Modifier.width(8.dp))
         TemperatureItem(
             icon = painterResource(id = R.drawable.arrow_down),
             temperature = state.weatherData?.daily[0]?.min_temperature?.toInt() ?: 0,
-            color = tempItemIconColorForDay(state.weatherData?.currentWeather?.is_day ?: false)
+            color = tempItemIconColorForDay(state.weatherData?.currentWeather?.isDay ?: false)
         )
     }
 }

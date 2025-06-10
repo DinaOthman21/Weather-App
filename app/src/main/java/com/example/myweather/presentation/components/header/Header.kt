@@ -62,16 +62,16 @@ fun Header(
         Text(
             "${weatherUiState.weatherData?.currentWeather?.temperature}" + "°C",
             fontSize = 64.sp,
-            color = tempColorForDay(weatherUiState.weatherData?.currentWeather?.is_day ?: false),
+            color = tempColorForDay(weatherUiState.weatherData?.currentWeather?.isDay ?: false),
             fontFamily = Urbanist,
             fontWeight = FontWeight.SemiBold,
             lineHeight = 64.sp,
             letterSpacing = 0.25.sp,
         )
         Text(
-            text = weatherUiState.weatherData?.currentWeather?.weathercode?.description ?:"" ,
+            text = weatherUiState.weatherData?.currentWeather?.weatherCode?.description ?:"" ,
             fontSize = 16.sp,
-            color = tempTextColorForDay(weatherUiState.weatherData?.currentWeather?.is_day ?: false),
+            color = tempTextColorForDay(weatherUiState.weatherData?.currentWeather?.isDay ?: false),
             fontFamily = Urbanist,
             fontWeight = FontWeight.Medium,
             lineHeight = 16.sp,
