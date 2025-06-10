@@ -1,4 +1,4 @@
-package com.example.myweather.presentation.components.current_weather_Item
+package com.example.myweather.presentation.components.current_weather
 
 import androidx.compose.foundation.border
 import androidx.compose.ui.graphics.painter.Painter

@@ -34,7 +34,7 @@ fun Header(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Spacer(modifier = Modifier.height(64.dp))
+        Spacer(modifier = Modifier.height(24.dp))
         CityItem(state = weatherUiState)
         Row(modifier = Modifier.fillMaxWidth().offset(y = (-20).dp)) {
             Spacer(modifier = Modifier.weight(1f))

@@ -80,3 +80,8 @@ fun currentWeatherCardStrokeColorForDay(isDay: Boolean): Color {
     return if (isDay) tempItemColor.copy(.08f) else Color.White.copy(.08f)
 }
 
+fun todayTextColor(isDay: Boolean): Color {
+    return if (isDay) tempItemColor else Color.White
+}
+
+
