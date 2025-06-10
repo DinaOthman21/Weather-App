@@ -121,7 +121,7 @@ fun HourlyWeatherSection(
     LazyRow(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp),
+            .padding(start = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         items(hourlyData.size) { index ->
@@ -129,7 +129,7 @@ fun HourlyWeatherSection(
 
             val itemData = HourlyWeatherItemData(
                 icon = painterResource(R.drawable.mainly_clear1),
-                temp = "${hourly.temperature_2m}°",
+                temp = "${hourly.temperature_2m}°C",
                 hour = formatToHourDotMinute(hourly.date)
             )
             HourlyWeatherCard(

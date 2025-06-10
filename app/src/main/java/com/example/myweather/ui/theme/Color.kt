@@ -84,4 +84,8 @@ fun todayTextColor(isDay: Boolean): Color {
     return if (isDay) tempItemColor else Color.White
 }
 
+fun dayNameColorForDay(isDay: Boolean): Color {
+    return if (isDay) tempItemColor.copy(.6f) else Color.White.copy(.6f)
+}
+
 

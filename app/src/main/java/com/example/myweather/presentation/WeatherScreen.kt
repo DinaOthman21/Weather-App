@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myweather.presentation.components.current_weather.CurrentWeatherSection
 import com.example.myweather.presentation.components.header.Header
+import com.example.myweather.presentation.components.next_days.DailyWeatherData
 import com.example.myweather.presentation.components.today_weather.HourlyWeatherSection
 import com.example.myweather.ui.theme.Urbanist
 import com.example.myweather.ui.theme.backgroundGradientForDay
@@ -101,6 +102,24 @@ fun ScreenContent(
                         state = state,
                     )
 
+                }
+                item{
+                    Spacer(Modifier.height(24.dp))
+                    Text(
+                        text = "Next 7 days",
+                        fontSize = 20.sp,
+                        color = todayTextColor(
+                            state.weatherData.currentWeather.isDay
+                        ),
+                        fontFamily = Urbanist,
+                        fontWeight = FontWeight.SemiBold,
+                        lineHeight = 20.sp,
+                        letterSpacing = 0.25.sp,
+                        modifier = Modifier.padding(start = 12.dp)
+                    )
+                    Spacer(Modifier.height(12.dp))
+                    DailyWeatherData(state = state)
+                    Spacer(Modifier.height(32.dp))
                 }
             }
         }
