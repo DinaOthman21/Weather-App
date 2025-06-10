@@ -15,11 +15,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.myweather.R
+import com.example.myweather.domain.model.entity.weather.getWeatherIcon
 import com.example.myweather.presentation.WeatherUiState
 import com.example.myweather.ui.theme.Urbanist
 import com.example.myweather.ui.theme.currentWeatherCardBgColorForDay
@@ -128,7 +127,7 @@ fun HourlyWeatherSection(
             val hourly = hourlyData[index]
 
             val itemData = HourlyWeatherItemData(
-                icon = painterResource(R.drawable.mainly_clear1),
+                icon = getWeatherIcon(hourly.weathercode, state.weatherData!!.currentWeather.isDay),
                 temp = "${hourly.temperature_2m}°C",
                 hour = formatToHourDotMinute(hourly.date)
             )

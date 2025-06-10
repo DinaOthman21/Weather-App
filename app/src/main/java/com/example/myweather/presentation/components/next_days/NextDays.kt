@@ -20,11 +20,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myweather.R
+import com.example.myweather.domain.model.entity.weather.getWeatherIcon
 import com.example.myweather.presentation.WeatherUiState
 import com.example.myweather.ui.theme.Urbanist
 import com.example.myweather.ui.theme.currentWeatherCardBgColorForDay
 import com.example.myweather.ui.theme.currentWeatherCardValueColorForDay
 import com.example.myweather.ui.theme.dayNameColorForDay
+import com.example.myweather.ui.theme.tempItemBgColorForDay
 import com.example.myweather.ui.theme.tempItemDividerColorForDay
 
 
@@ -139,11 +141,20 @@ fun DailyWeatherData(state: WeatherUiState) {
         dailyData.take(7).forEachIndexed { index, daily ->
             val itemData = DailyWeatherItemData(
                 day = daily.date,
-                icon = painterResource(R.drawable.mainly_clear1),
+                icon = getWeatherIcon(daily.weather_code, state.weatherData.currentWeather.isDay),
                 maxTemp = daily.max_temperature.toDouble().toInt(),
                 minTemp = daily.min_temperature.toDouble().toInt()
             )
             DailyWeatherItem(state = state, dailyWeatherItemData = itemData)
+            if (index < dailyData.take(7).size - 1) {
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(1.dp)
+                        .background(color = tempItemBgColorForDay(state.weatherData.currentWeather.isDay))
+                        .padding(horizontal = 12.dp)
+                )
+            }
         }
     }
 }

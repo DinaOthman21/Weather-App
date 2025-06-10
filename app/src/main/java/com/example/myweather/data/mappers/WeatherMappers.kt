@@ -37,25 +37,30 @@ private fun codeToCondition(code: Int): WeatherCondition {
         1 -> WeatherCondition.MAINLY_CLEAR
         2 -> WeatherCondition.PARTLY_CLOUDY
         3 -> WeatherCondition.OVERCAST
-        45, 48 -> WeatherCondition.FOG
-        51, 53, 55 -> WeatherCondition.DRIZZLE
-        56, 57 -> WeatherCondition.LIGHT_FREEZING_DRIZZLE
-        61 -> WeatherCondition.SLIGHT_RAIN
-        63 -> WeatherCondition.MODERATE_RAIN
-        65 -> WeatherCondition.HEAVY_INTENSITY_RAIN
-        66 -> WeatherCondition.LIGHT_FREEZING_RAIN
-        67 -> WeatherCondition.HEAVY_INTENSITY_FREEZING_RAIN
-        71 -> WeatherCondition.SLIGHT_SNOW_FALL
-        73 -> WeatherCondition.MODERATE_SNOW_FALL
-        75 -> WeatherCondition.HEAVY_INTENSITY_SNOW_FALL
+        45 -> WeatherCondition.FOG
+        48 -> WeatherCondition.DEPOSITING_RIME_FOG
+        51 -> WeatherCondition.DRIZZLE_LIGHT
+        53 -> WeatherCondition.DRIZZLE_MODERATE
+        55 -> WeatherCondition.DRIZZLE_DENSE
+        56 -> WeatherCondition.FREEZING_DRIZZLE_LIGHT
+        57 -> WeatherCondition.FREEZING_DRIZZLE_DENSE
+        61 -> WeatherCondition.RAIN_SLIGHT
+        63 -> WeatherCondition.RAIN_MODERATE
+        65 -> WeatherCondition.RAIN_HEAVY
+        66 -> WeatherCondition.FREEZING_RAIN_LIGHT
+        67 -> WeatherCondition.FREEZING_RAIN_HEAVY
+        71 -> WeatherCondition.SNOW_SLIGHT
+        73 -> WeatherCondition.SNOW_MODERATE
+        75 -> WeatherCondition.SNOW_HEAVY
         77 -> WeatherCondition.SNOW_GRAINS
-        80 -> WeatherCondition.SLIGHT_RAIN_SHOWERS
-        81 -> WeatherCondition.MODERATE_RAIN_SHOWERS
-        82 -> WeatherCondition.VIOLENT_RAIN_SHOWERS
-        85 -> WeatherCondition.SLIGHT_SNOW_SHOWERS
-        86 -> WeatherCondition.HEAVY_SNOW_SHOWERS
-        95 -> WeatherCondition.SLIGHT_THUNDERSTORM
-        96, 99 -> WeatherCondition.SLIGHT_THUNDERSTORM_WITH_HAIL
+        80 -> WeatherCondition.RAIN_SHOWERS_SLIGHT
+        81 -> WeatherCondition.RAIN_SHOWERS_MODERATE
+        82 -> WeatherCondition.RAIN_SHOWERS_VIOLENT
+        85 -> WeatherCondition.SNOW_SHOWERS_SLIGHT
+        86 -> WeatherCondition.SNOW_SHOWERS_HEAVY
+        95 -> WeatherCondition.THUNDERSTORM_SLIGHT
+        96 -> WeatherCondition.THUNDERSTORM_WITH_HAIL_SLIGHT
+        99 -> WeatherCondition.THUNDERSTORM_WITH_HAIL_HEAVY
         else -> WeatherCondition.UNKNOWN
     }
 }

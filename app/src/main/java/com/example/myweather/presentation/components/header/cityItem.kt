@@ -31,7 +31,7 @@ fun CityItem(
         )
         Spacer(Modifier.width(4.dp))
         Text(
-            text = state.weatherData!!.timeZone,
+            text = state.weatherData!!.timeZone.split("/")[1],
             fontSize = 16.sp,
             color = locationColorForDay(state.weatherData.currentWeather.isDay),
             fontWeight = FontWeight.Medium,
