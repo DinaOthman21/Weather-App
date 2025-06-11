@@ -1,4 +1,4 @@
-package com.example.myweather.presentation.components.today_weather
+package com.example.myweather.presentation.screens.components.today_weather
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -42,6 +42,7 @@ fun HourlyWeatherCard(
     todayWeatherItemData: HourlyWeatherItemData,
     modifier: Modifier = Modifier
 ) {
+    val isDay = state.weatherData?.currentWeather?.isDay ?: false
     Box(
         modifier = modifier
             .height(132.dp)
@@ -54,15 +55,11 @@ fun HourlyWeatherCard(
                 .align(Alignment.BottomCenter)
                 .border(
                     width = 1.dp,
-                    color = currentWeatherCardStrokeColorForDay(
-                        state.weatherData?.currentWeather?.isDay ?: false
-                    ),
+                    color = currentWeatherCardStrokeColorForDay(isDay),
                     shape = RoundedCornerShape(20.dp)
                 ),
             colors = CardDefaults.cardColors(
-                containerColor = currentWeatherCardBgColorForDay(
-                    state.weatherData?.currentWeather?.isDay ?: false
-                )
+                containerColor = currentWeatherCardBgColorForDay(isDay)
             ),
             shape = RoundedCornerShape(20.dp)
         ) {
@@ -74,9 +71,7 @@ fun HourlyWeatherCard(
                 Text(
                     text = todayWeatherItemData.temp,
                     fontSize = 16.sp,
-                    color = currentWeatherCardValueColorForDay(
-                        state.weatherData?.currentWeather?.isDay ?: false
-                    ),
+                    color = currentWeatherCardValueColorForDay(isDay),
                     fontFamily = Urbanist,
                     fontWeight = FontWeight.Medium,
                     lineHeight = 16.sp,
@@ -86,9 +81,7 @@ fun HourlyWeatherCard(
                 Text(
                     text = todayWeatherItemData.hour,
                     fontSize = 16.sp,
-                    color = currentWeatherCardLabelColorForDay(
-                        state.weatherData?.currentWeather?.isDay ?: false
-                    ),
+                    color = currentWeatherCardLabelColorForDay(isDay),
                     fontFamily = Urbanist,
                     fontWeight = FontWeight.Medium,
                     lineHeight = 16.sp,
@@ -115,7 +108,7 @@ fun HourlyWeatherSection(
     state: WeatherUiState,
     modifier: Modifier = Modifier
 ) {
-    val hourlyData = state.weatherData?.hourly ?: emptyList()
+    val hourlyData = state.weatherData?.hourly?.take(24) ?: emptyList()
 
     LazyRow(
         modifier = modifier

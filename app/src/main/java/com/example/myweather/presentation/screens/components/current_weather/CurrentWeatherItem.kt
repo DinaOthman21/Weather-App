@@ -1,4 +1,4 @@
-package com.example.myweather.presentation.components.current_weather
+package com.example.myweather.presentation.screens.components.current_weather
 
 import androidx.compose.foundation.border
 import androidx.compose.ui.graphics.painter.Painter
@@ -36,16 +36,17 @@ fun CurrentWeatherCard(
     currentWeatherItemData : CurrentWeatherItemData,
     modifier: Modifier = Modifier
 ) {
+    val isDay = state.weatherData?.currentWeather?.isDay ?: false
     Card(
         modifier = modifier
             .height(115.dp)
             .border(
                 width = 1.dp,
-                color = currentWeatherCardStrokeColorForDay(state.weatherData?.currentWeather?.isDay ?: false),
+                color = currentWeatherCardStrokeColorForDay(isDay),
                 shape = RoundedCornerShape(24.dp)
             ),
          colors = CardDefaults.cardColors(
-             containerColor = currentWeatherCardBgColorForDay(state.weatherData?.currentWeather?.isDay ?: false)
+             containerColor = currentWeatherCardBgColorForDay(isDay)
          ),
          shape = RoundedCornerShape(24.dp),
     ) {
@@ -64,7 +65,7 @@ fun CurrentWeatherCard(
             Text(
                 text = currentWeatherItemData.value,
                 fontSize = 20.sp,
-                color = currentWeatherCardValueColorForDay(state.weatherData?.currentWeather?.isDay ?: false),
+                color = currentWeatherCardValueColorForDay(isDay),
                 fontFamily = Urbanist,
                 fontWeight = FontWeight.Medium,
                 lineHeight = 20.sp,
@@ -74,7 +75,7 @@ fun CurrentWeatherCard(
             Text(
                 text = currentWeatherItemData.label,
                 fontSize = 14.sp,
-                color = currentWeatherCardLabelColorForDay(state.weatherData?.currentWeather?.isDay ?: false),
+                color = currentWeatherCardLabelColorForDay(isDay),
                 fontFamily = Urbanist,
                 fontWeight = FontWeight.Normal,
                 lineHeight = 14.sp,
@@ -88,7 +89,6 @@ fun CurrentWeatherCard(
 fun createCurrentWeatherCardData(weatherUiState: WeatherUiState): List<CurrentWeatherItemData> {
     val currentWeather = weatherUiState.weatherData?.currentWeather
     val currentWeatherUnit = weatherUiState.weatherData?.currentWeatherUnit
-
 
     val windIcon = painterResource(id = R.drawable.fast_wind)
     val humidityIcon = painterResource(id = R.drawable.humidity)

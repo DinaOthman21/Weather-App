@@ -1,9 +1,10 @@
-package com.example.myweather.presentation.components.next_days
+package com.example.myweather.presentation.screens.components.next_days
 
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -43,10 +44,15 @@ fun DailyWeatherItem(
     dailyWeatherItemData: DailyWeatherItemData,
     modifier: Modifier = Modifier
 ) {
+    val isDay = state.weatherData!!.currentWeather.isDay
     Row(
         modifier = modifier
             .fillMaxWidth()
             .height(60.dp)
+            .border(
+                width = .3.dp,
+                color = tempItemBgColorForDay(isDay),
+            )
             .padding(horizontal = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
@@ -55,7 +61,7 @@ fun DailyWeatherItem(
             text = dailyWeatherItemData.day,
             fontSize = 16.sp,
             color = dayNameColorForDay(
-                state.weatherData?.currentWeather?.isDay ?: false
+                isDay
             ),
             fontFamily = Urbanist,
             fontWeight = FontWeight.Normal,
@@ -79,13 +85,13 @@ fun DailyWeatherItem(
                 painter = painterResource(R.drawable.arrow_up),
                 contentDescription = null,
                 modifier = Modifier.size(12.dp),
-                tint = currentWeatherCardValueColorForDay(state.weatherData?.currentWeather?.isDay ?: false)
+                tint = currentWeatherCardValueColorForDay(isDay)
             )
             Spacer(Modifier.width(4.dp))
             Text(
                 text = "${dailyWeatherItemData.maxTemp}°C",
                 fontSize = 16.sp,
-                color = currentWeatherCardValueColorForDay(state.weatherData?.currentWeather?.isDay ?: false),
+                color = currentWeatherCardValueColorForDay(isDay),
                 fontWeight = FontWeight.Medium,
                 fontFamily = Urbanist,
                 lineHeight = 16.sp,
@@ -96,20 +102,20 @@ fun DailyWeatherItem(
                 modifier = Modifier
                     .width(1.dp)
                     .height(14.dp)
-                    .background(tempItemDividerColorForDay(state.weatherData?.currentWeather?.isDay ?: false))
+                    .background(tempItemDividerColorForDay(isDay))
             )
             Spacer(Modifier.width(4.dp))
             Icon(
                 painter = painterResource(R.drawable.arrow_down),
                 contentDescription = null,
                 modifier = Modifier.size(12.dp),
-                tint = currentWeatherCardValueColorForDay(state.weatherData?.currentWeather?.isDay ?: false)
+                tint = currentWeatherCardValueColorForDay(isDay)
             )
             Spacer(Modifier.width(4.dp))
             Text(
                 text = "${dailyWeatherItemData.minTemp}°C",
                 fontSize = 16.sp,
-                color = currentWeatherCardValueColorForDay(state.weatherData?.currentWeather?.isDay ?: false),
+                color = currentWeatherCardValueColorForDay(isDay),
                 fontWeight = FontWeight.Medium,
                 fontFamily = Urbanist,
                 lineHeight = 16.sp,
@@ -123,25 +129,26 @@ fun DailyWeatherItem(
 @Composable
 fun DailyWeatherData(state: WeatherUiState) {
     val dailyData = state.weatherData?.daily ?: return
+    val isDay = state.weatherData.currentWeather.isDay
 
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 12.dp)
             .shadow(
-                elevation = 8.dp,
+                elevation = 2.dp,
                 shape = RoundedCornerShape(16.dp),
                 ambientColor = Color.Black.copy(alpha = 0.2f),
                 spotColor = Color.Black.copy(alpha = 0.2f),
                 clip = false
             )
-            .clip(RoundedCornerShape(16.dp))
-            .background(currentWeatherCardBgColorForDay(state.weatherData.currentWeather.isDay))
+            .clip(RoundedCornerShape(24.dp))
+            .background(currentWeatherCardBgColorForDay(isDay))
     ) {
         dailyData.take(7).forEachIndexed { index, daily ->
             val itemData = DailyWeatherItemData(
                 day = daily.date,
-                icon = getWeatherIcon(daily.weather_code, state.weatherData.currentWeather.isDay),
+                icon = getWeatherIcon(daily.weather_code, isDay),
                 maxTemp = daily.max_temperature.toDouble().toInt(),
                 minTemp = daily.min_temperature.toDouble().toInt()
             )
@@ -151,7 +158,7 @@ fun DailyWeatherData(state: WeatherUiState) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(1.dp)
-                        .background(color = tempItemBgColorForDay(state.weatherData.currentWeather.isDay))
+                        .background(color = tempItemBgColorForDay(isDay))
                         .padding(horizontal = 12.dp)
                 )
             }

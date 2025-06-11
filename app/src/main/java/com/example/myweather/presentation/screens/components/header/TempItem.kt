@@ -1,4 +1,4 @@
-package com.example.myweather.presentation.components.header
+package com.example.myweather.presentation.screens.components.header
 
 import androidx.compose.material3.Icon
 import androidx.compose.foundation.background
@@ -34,31 +34,32 @@ fun TemperatureRow(
     modifier: Modifier = Modifier,
     state : WeatherUiState
 ) {
+    val isDay = state.weatherData?.currentWeather?.isDay ?: false
+    val daily = state.weatherData?.daily[0]
     Row(
         modifier = modifier
-            .height(35.dp)
             .clip(CircleShape)
-            .background(tempItemBgColorForDay(state.weatherData?.currentWeather?.isDay ?: false))
+            .background(tempItemBgColorForDay(isDay))
             .padding(horizontal = 24.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         TemperatureItem(
             icon = painterResource(id = R.drawable.arrow_up),
-            temperature = state.weatherData?.daily[0]?.max_temperature?.toInt() ?: 0,
-            color = tempItemIconColorForDay(state.weatherData?.currentWeather?.isDay ?: false)
+            temperature = daily?.max_temperature?.toInt() ?: 0,
+            color = tempItemIconColorForDay(isDay)
         )
         Spacer(Modifier.width(8.dp))
         Box(
             modifier = Modifier
                 .width(1.dp)
-                .height(24.dp)
-                .background(tempItemDividerColorForDay(state.weatherData?.currentWeather?.isDay ?: false))
+                .height(14.dp)
+                .background(tempItemDividerColorForDay(isDay))
         )
         Spacer(Modifier.width(8.dp))
         TemperatureItem(
             icon = painterResource(id = R.drawable.arrow_down),
-            temperature = state.weatherData?.daily[0]?.min_temperature?.toInt() ?: 0,
-            color = tempItemIconColorForDay(state.weatherData?.currentWeather?.isDay ?: false)
+            temperature = daily?.min_temperature?.toInt() ?: 0,
+            color = tempItemIconColorForDay(isDay)
         )
     }
 }
@@ -76,7 +77,7 @@ private fun TemperatureItem(
         Icon(
             painter = icon,
             contentDescription = null,
-            modifier = Modifier.size(24.dp),
+            modifier = Modifier.size(12.dp),
             tint = color
         )
         Text(

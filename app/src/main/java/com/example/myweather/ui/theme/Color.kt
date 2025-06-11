@@ -88,4 +88,8 @@ fun dayNameColorForDay(isDay: Boolean): Color {
     return if (isDay) tempItemColor.copy(.6f) else Color.White.copy(.6f)
 }
 
+fun statusBarColor(isDay: Boolean): Color {
+    return if (isDay) Color(0xFF84CCF8)  else tempItemColor
+}
+
 

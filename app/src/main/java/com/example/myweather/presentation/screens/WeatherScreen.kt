@@ -1,4 +1,4 @@
-package com.example.myweather.presentation
+package com.example.myweather.presentation.screens
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -23,19 +24,35 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.myweather.presentation.components.current_weather.CurrentWeatherSection
-import com.example.myweather.presentation.components.header.Header
-import com.example.myweather.presentation.components.next_days.DailyWeatherData
-import com.example.myweather.presentation.components.today_weather.HourlyWeatherSection
+import com.example.myweather.presentation.WeatherUiState
+import com.example.myweather.presentation.WeatherViewModel
+import com.example.myweather.presentation.screens.components.current_weather.CurrentWeatherSection
+import com.example.myweather.presentation.screens.components.header.Header
+import com.example.myweather.presentation.screens.components.next_days.DailyWeatherData
+import com.example.myweather.presentation.screens.components.today_weather.HourlyWeatherSection
 import com.example.myweather.ui.theme.Urbanist
 import com.example.myweather.ui.theme.backgroundGradientForDay
+import com.example.myweather.ui.theme.statusBarColor
 import com.example.myweather.ui.theme.todayTextColor
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun WeatherScreen(viewModel: WeatherViewModel) {
 
     val state by viewModel.state.collectAsState()
+    val systemUiController = rememberSystemUiController()
+    val isDay = state.weatherData?.currentWeather?.isDay ?: false
+
+    LaunchedEffect(isDay) {
+        isDay.let {
+            systemUiController.setStatusBarColor(
+                color = statusBarColor(it),
+                darkIcons = it
+            )
+        }
+    }
+
     ScreenContent(state)
 }
 

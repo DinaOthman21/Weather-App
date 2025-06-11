@@ -1,4 +1,4 @@
-package com.example.myweather.presentation.components.header
+package com.example.myweather.presentation.screens.components.header
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -21,19 +21,20 @@ import com.example.myweather.ui.theme.locationColorForDay
 fun CityItem(
     state : WeatherUiState
 ){
+    val isDay = state.weatherData?.currentWeather?.isDay ?: true
     Row(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
             painter = painterResource(R.drawable.location),
             contentDescription = "location icon",
-            tint = locationColorForDay(state.weatherData?.currentWeather?.isDay ?: true)
+            tint = locationColorForDay(isDay)
         )
         Spacer(Modifier.width(4.dp))
         Text(
             text = state.weatherData!!.timeZone.split("/")[1],
             fontSize = 16.sp,
-            color = locationColorForDay(state.weatherData.currentWeather.isDay),
+            color = locationColorForDay(isDay),
             fontWeight = FontWeight.Medium,
             fontFamily = Urbanist,
             lineHeight = 20.sp,

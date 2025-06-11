@@ -1,4 +1,4 @@
-package com.example.myweather.presentation.components.header
+package com.example.myweather.presentation.screens.components.header
 
 
 import androidx.compose.foundation.Image
@@ -28,6 +28,9 @@ import com.example.myweather.ui.theme.tempTextColorForDay
 fun Header(
     weatherUiState: WeatherUiState
 ) {
+    val isDay =weatherUiState.weatherData?.currentWeather?.isDay ?: false
+    val currentWeather = weatherUiState.weatherData?.currentWeather
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxWidth()
@@ -37,8 +40,8 @@ fun Header(
         Spacer(modifier = Modifier.height(12.dp))
             Image(
                  getWeatherIcon(
-                    weatherCode = weatherUiState.weatherData?.currentWeather?.weatherCode ?: WeatherCondition.UNKNOWN,
-                    isDay = weatherUiState.weatherData?.currentWeather?.isDay ?: false,
+                    weatherCode = currentWeather?.weatherCode ?: WeatherCondition.UNKNOWN,
+                    isDay = isDay,
                 ),
                 contentDescription = null,
                 contentScale = ContentScale.Fit,
@@ -46,18 +49,18 @@ fun Header(
             )
         Spacer(modifier = Modifier.height(12.dp))
         Text(
-            "${weatherUiState.weatherData?.currentWeather?.temperature}" + "°C",
+            "${currentWeather?.temperature}${weatherUiState.weatherData?.currentWeatherUnit!!.temperature}",
             fontSize = 64.sp,
-            color = tempColorForDay(weatherUiState.weatherData?.currentWeather?.isDay ?: false),
+            color = tempColorForDay(isDay),
             fontFamily = Urbanist,
             fontWeight = FontWeight.SemiBold,
             lineHeight = 64.sp,
             letterSpacing = 0.25.sp,
         )
         Text(
-            text = weatherUiState.weatherData?.currentWeather?.weatherCode?.description ?: "",
+            text = currentWeather?.weatherCode?.description ?: "",
             fontSize = 16.sp,
-            color = tempTextColorForDay(weatherUiState.weatherData?.currentWeather?.isDay ?: false),
+            color = tempTextColorForDay(isDay),
             fontFamily = Urbanist,
             fontWeight = FontWeight.Medium,
             lineHeight = 16.sp,

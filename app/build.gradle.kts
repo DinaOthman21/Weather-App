@@ -78,4 +78,7 @@ dependencies {
     // coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
+
+    //Accompanist
+    implementation ("com.google.accompanist:accompanist-systemuicontroller:0.32.0")
 }
