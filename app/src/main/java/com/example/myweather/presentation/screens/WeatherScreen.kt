@@ -74,12 +74,17 @@ fun ScreenContent(
         }
 
         state.error.isNotEmpty() -> {
-            Text(
-                text = "Error: ${state.error}",
-                color = Color.Red,
-                fontSize = 18.sp,
-                modifier = Modifier.padding(16.dp)
-            )
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "Error: ${state.error}",
+                    color = Color.Red,
+                    fontSize = 18.sp,
+                    modifier = Modifier.padding(16.dp)
+                )
+            }
         }
 
         state.weatherData != null -> {
@@ -142,11 +147,16 @@ fun ScreenContent(
         }
 
         else -> {
-            Text(
-                text = "No weather data available.",
-                fontSize = 16.sp,
-                modifier = Modifier.padding(16.dp)
-            )
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "No weather data available.",
+                    fontSize = 16.sp,
+                    color = Color.Gray
+                )
+            }
         }
     }
 }

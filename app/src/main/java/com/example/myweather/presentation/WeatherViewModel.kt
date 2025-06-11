@@ -1,15 +1,15 @@
 package com.example.myweather.presentation
 
 import androidx.lifecycle.ViewModel
-import com.example.myweather.domain.repository.WeatherRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import androidx.lifecycle.viewModelScope
+import com.example.myweather.domain.usecases.GetWeatherUseCase
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class WeatherViewModel(
-    private val weatherRepository: WeatherRepository
+    private val getWeatherUseCase: GetWeatherUseCase,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(WeatherUiState(null, false, ""))
@@ -26,7 +26,7 @@ class WeatherViewModel(
                 error = ""
             )
             try {
-                val result = weatherRepository.getWeatherData()
+                val result = getWeatherUseCase.invoke()
                 _state.update {
                     it.copy(
                         weatherData = result,

@@ -145,7 +145,7 @@ fun DailyWeatherData(state: WeatherUiState) {
             .clip(RoundedCornerShape(24.dp))
             .background(currentWeatherCardBgColorForDay(isDay))
     ) {
-        dailyData.take(7).forEachIndexed { index, daily ->
+        dailyData.drop(1).take(7).forEachIndexed { index, daily ->
             val itemData = DailyWeatherItemData(
                 day = daily.date,
                 icon = getWeatherIcon(daily.weather_code, isDay),
@@ -153,7 +153,7 @@ fun DailyWeatherData(state: WeatherUiState) {
                 minTemp = daily.min_temperature.toDouble().toInt()
             )
             DailyWeatherItem(state = state, dailyWeatherItemData = itemData)
-            if (index < dailyData.take(7).size - 1) {
+            if (index < dailyData.drop(1).take(7).size - 1) {
                 Spacer(
                     modifier = Modifier
                         .fillMaxWidth()

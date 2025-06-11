@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
+import com.example.myweather.presentation.RequestLocationPermission
 import com.example.myweather.presentation.screens.WeatherScreen
 import com.example.myweather.ui.theme.MyWeatherTheme
 import org.koin.android.ext.android.get
@@ -17,9 +18,14 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MyWeatherTheme {
-                WeatherScreen(get())
+                RequestLocationPermission {
+                    WeatherScreen(get())
+                }
             }
         }
     }
 }
+
+
+
 

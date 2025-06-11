@@ -3,6 +3,7 @@ package com.example.myweather.di
 import com.example.myweather.data.remote.WeatherApi
 import com.example.myweather.data.repository.WeatherRepositoryImpl
 import com.example.myweather.domain.repository.WeatherRepository
+import com.example.myweather.domain.usecases.GetWeatherUseCase
 import com.example.myweather.presentation.WeatherViewModel
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -30,5 +31,6 @@ val appModule = module {
             weatherApi = get()
         )
     }
+    single {GetWeatherUseCase(get())}
     viewModel { WeatherViewModel(get()) }
 }
