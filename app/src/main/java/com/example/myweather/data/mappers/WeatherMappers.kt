@@ -19,10 +19,7 @@ import com.example.myweather.domain.model.entity.weather.Hourly
 import com.example.myweather.domain.model.entity.weather.HourlyUnite
 import com.example.myweather.domain.model.entity.weather.WeatherCondition
 import com.example.myweather.domain.model.entity.weather.WeatherData
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.time.format.TextStyle
-import java.util.Locale
+import kotlinx.datetime.LocalDate
 
 fun Location.toAppLocation(): CurrentLocation {
     return CurrentLocation(
@@ -156,9 +153,6 @@ fun WeatherDTO.toWeatherData(): WeatherData {
 }
 
 
-@RequiresApi(Build.VERSION_CODES.O)
 fun dateToDay(dateString: String): String {
-    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-    val date = LocalDate.parse(dateString, formatter)
-    return date.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.ENGLISH)
+    return LocalDate.parse(dateString).dayOfWeek.name.lowercase().replaceFirstChar { it.uppercase() }
 }

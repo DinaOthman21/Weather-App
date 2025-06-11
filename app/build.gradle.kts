@@ -81,4 +81,7 @@ dependencies {
 
     //Accompanist
     implementation ("com.google.accompanist:accompanist-systemuicontroller:0.32.0")
+
+    //dateTime
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.2")
 }
