@@ -17,7 +17,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -88,15 +90,23 @@ fun ScreenContent(
         }
 
         state.weatherData != null -> {
+            val lazyState = rememberLazyListState()
+            val scrollOffset by remember {
+                derivedStateOf {
+                    val offset = lazyState.firstVisibleItemScrollOffset
+                    val maxOffset = 300
+                    (offset.coerceAtMost(maxOffset)).toFloat() / maxOffset
+                }
+            }
             LazyColumn(
-                state = rememberLazyListState(),
+                state = lazyState,
                 modifier = Modifier
                     .fillMaxSize()
                     .safeDrawingPadding()
                     .background(backgroundGradientForDay(state.weatherData.currentWeather.isDay))
             ) {
                 item {
-                    Header(state)
+                    Header(state,scrollOffset)
                     Spacer(Modifier.height(24.dp))
                 }
                 item {
